@@ -1,0 +1,68 @@
+version: "3.1"
+
+rules:
+
+# =========================================================
+# BASIC CONVERSATION RULES
+# =========================================================
+
+- rule: Greet the user
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: Say goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- rule: Explain that the assistant is a bot
+  steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+
+# =========================================================
+# EXERCISE RECOMMENDATION FORM
+# =========================================================
+
+- rule: Start exercise recommendation form
+  steps:
+    - intent: recommend_exercise
+    - action: exercise_form
+    - active_loop: exercise_form
+
+- rule: Submit exercise recommendation form
+  condition:
+    - active_loop: exercise_form
+  steps:
+    - action: exercise_form
+    - active_loop: null
+    - action: action_recommend_exercise
+
+# =========================================================
+# EXERCISE DETAILS
+# =========================================================
+
+- rule: Provide details about the last exercise
+  steps:
+    - intent: ask_exercise_details
+    - action: action_exercise_details
+
+# =========================================================
+# RESET USER PREFERENCES
+# =========================================================
+
+- rule: Reset exercise preferences
+  steps:
+    - intent: reset_preferences
+    - action: action_reset_preferences
+    - action: utter_preferences_reset
+
+# =========================================================
+# FALLBACK
+# =========================================================
+
+- rule: Handle messages with low confidence
+  steps:
+    - intent: nlu_fallback
+    - action: utter_please_rephrase

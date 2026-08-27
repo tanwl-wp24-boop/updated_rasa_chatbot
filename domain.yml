@@ -1,0 +1,203 @@
+version: "3.1"
+
+# =========================================================
+# INTENTS
+# =========================================================
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - recommend_exercise
+  - inform
+  - ask_exercise_details
+  - reset_preferences
+  - nlu_fallback
+
+# =========================================================
+# ENTITIES
+# =========================================================
+
+entities:
+  - body_part
+  - equipment
+  - level
+  - exercise_type
+
+# =========================================================
+# SLOTS
+# These store the user's exercise preferences.
+# =========================================================
+
+slots:
+  body_part:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: body_part
+
+  equipment:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: equipment
+
+  level:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: level
+
+  exercise_type:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: exercise_type
+
+  # These slots will store the last recommended exercise.
+  # They will be filled by actions.py later.
+
+  last_exercise_title:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_exercise_description:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_exercise_body_part:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_exercise_equipment:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_exercise_level:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+# =========================================================
+# FORMS
+# The chatbot asks for missing information.
+# Equipment and exercise type remain optional.
+# =========================================================
+
+forms:
+  exercise_form:
+    required_slots:
+      - body_part
+      - level
+
+# =========================================================
+# RESPONSES
+# =========================================================
+
+responses:
+  utter_greet:
+    - text: >
+        Hello! I am your gym and fitness assistant.
+        I can recommend exercises based on your target body part,
+        experience level, available equipment, and preferred exercise type.
+        What would you like to train?
+
+    - text: >
+        Hi! Ready to work out? Tell me the body part you want to train,
+        your experience level, and any equipment you want to use.
+
+  utter_goodbye:
+    - text: >
+        Goodbye! Train safely, maintain proper form, and remember to rest.
+
+    - text: >
+        See you next time. Stay consistent and exercise safely!
+
+  utter_happy:
+    - text: >
+        Great! Let us find a suitable exercise for you.
+
+  utter_cheer_up:
+    - text: >
+        It is normal to have low-motivation days.
+        Start with a short and manageable workout, and focus on consistency.
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_iamabot:
+    - text: >
+        I am a Rasa-powered gym and fitness assistant.
+        I use an exercise dataset to provide exercise recommendations.
+
+  # Form questions
+
+  utter_ask_exercise_form_body_part:
+    - text: >
+        Which body part would you like to train?
+        For example: chest, back, arms, shoulders, abs, or legs.
+
+  utter_ask_exercise_form_level:
+    - text: >
+        What is your experience level: beginner, intermediate, or expert?
+
+  # Additional responses
+
+  utter_preferences_reset:
+    - text: >
+        Your previous exercise preferences have been cleared.
+        Tell me what you would like to train next.
+
+  utter_no_previous_exercise:
+    - text: >
+        I have not recommended an exercise yet.
+        Ask me for an exercise recommendation first.
+
+  utter_please_rephrase:
+    - text: >
+        Sorry, I did not understand that.
+        You can ask something like:
+        "Recommend a beginner dumbbell exercise for my chest."
+
+  utter_safety_notice:
+    - text: >
+        Exercise recommendations are general information, not medical advice.
+        Use proper form, choose an appropriate resistance, and stop if you
+        experience sharp pain, dizziness, or unusual discomfort.
+
+# =========================================================
+# CUSTOM ACTIONS
+# These will be created or improved in actions/actions.py.
+# =========================================================
+
+actions:
+  - action_recommend_exercise
+  - action_exercise_details
+  - action_reset_preferences
+  - validate_exercise_form
+
+# =========================================================
+# SESSION SETTINGS
+# Old exercise preferences will not transfer to a new session.
+# =========================================================
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

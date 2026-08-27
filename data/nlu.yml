@@ -1,0 +1,368 @@
+version: "3.1"
+
+nlu:
+
+# =========================================================
+# BASIC CONVERSATION INTENTS
+# =========================================================
+
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - hey there
+    - good morning
+    - good afternoon
+    - good evening
+    - hi fitness assistant
+    - hello gym assistant
+    - what's up
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - see you
+    - see you later
+    - talk to you later
+    - I am done
+    - thanks bye
+    - catch you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - correct
+    - sure
+    - definitely
+    - of course
+    - sounds good
+    - okay
+    - that is right
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - I do not want that
+    - that is incorrect
+    - no thanks
+    - something else
+    - not that one
+
+- intent: mood_great
+  examples: |
+    - I am feeling great
+    - I feel good
+    - I am happy
+    - I feel amazing
+    - everything is going well
+    - I am ready to exercise
+
+- intent: mood_unhappy
+  examples: |
+    - I am feeling sad
+    - I feel bad
+    - I am unhappy
+    - I had a bad day
+    - I do not feel great
+    - I have no motivation
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot
+    - are you human
+    - who are you
+    - am I talking to a bot
+    - what are you
+    - are you an AI
+
+# =========================================================
+# EXERCISE RECOMMENDATION INTENT
+# =========================================================
+
+- intent: recommend_exercise
+  examples: |
+    - recommend an exercise
+    - recommend an exercise for me
+    - suggest an exercise
+    - give me an exercise
+    - what exercise should I do
+    - what should I train today
+    - help me choose an exercise
+    - show me some workout exercises
+    - give me a gym exercise
+    - I need an exercise recommendation
+    - recommend a workout for today
+    - suggest a good gym movement
+
+    - recommend a [chest](body_part) exercise
+    - give me an exercise for my [shoulders](body_part)
+    - I want to train my [biceps](body_part)
+    - suggest something for my [triceps](body_part)
+    - what can I do for my [abs]{"entity":"body_part","value":"Abdominals"}
+    - recommend an exercise for my [core]{"entity":"body_part","value":"Abdominals"}
+    - show me a workout for my [quadriceps](body_part)
+    - recommend something for my [hamstrings](body_part)
+    - I want to exercise my [glutes](body_part)
+    - show me an exercise for my [calves](body_part)
+    - suggest a workout for my [lower back](body_part)
+    - recommend a workout for my [middle back](body_part)
+    - I want to train my [lats](body_part)
+    - give me an exercise for my [forearms](body_part)
+    - show me a workout for my [traps](body_part)
+    - recommend an exercise for my [neck](body_part)
+
+    - recommend a workout for my [legs]{"entity":"body_part","value":"leg"}
+    - give me a [leg day]{"entity":"body_part","value":"leg"} exercise
+    - I want to train my [lower body]{"entity":"body_part","value":"leg"}
+    - recommend an exercise for my [back](body_part)
+    - give me an [arm]{"entity":"body_part","value":"arms"} exercise
+    - I want to train my [arms](body_part)
+    - suggest an [upper body](body_part) exercise
+    - recommend a [full body](body_part) exercise
+
+    - recommend a [beginner](level) exercise
+    - give me an [intermediate](level) workout
+    - show me an [expert](level) exercise
+    - suggest something suitable for a [newbie]{"entity":"level","value":"Beginner"}
+    - recommend an [advanced]{"entity":"level","value":"Expert"} exercise
+
+    - recommend a [dumbbell](equipment) exercise
+    - suggest a workout using a [barbell](equipment)
+    - give me a [bodyweight]{"entity":"equipment","value":"Body Only"} exercise
+    - show me an exercise with [no equipment]{"entity":"equipment","value":"Body Only"}
+    - recommend an exercise using a [cable](equipment)
+    - I want to use a [machine](equipment)
+    - suggest an exercise with [resistance bands]{"entity":"equipment","value":"Bands"}
+    - give me a [kettlebell]{"entity":"equipment","value":"Kettlebells"} workout
+    - recommend something using a [medicine ball](equipment)
+    - show me an exercise with an [exercise ball](equipment)
+    - recommend something using an [E-Z curl bar](equipment)
+    - show me an exercise using a [foam roll](equipment)
+
+    - recommend a [beginner](level) [chest](body_part) exercise
+    - give me a [dumbbell](equipment) exercise for my [shoulders](body_part)
+    - recommend a [barbell](equipment) workout for my [biceps](body_part)
+    - suggest a [beginner](level) workout for my [legs]{"entity":"body_part","value":"leg"}
+    - give me a [bodyweight]{"entity":"equipment","value":"Body Only"} exercise for my [abs]{"entity":"body_part","value":"Abdominals"}
+    - recommend an [intermediate](level) [dumbbell](equipment) exercise for my [chest](body_part)
+    - suggest a [beginner](level) [bodyweight]{"entity":"equipment","value":"Body Only"} exercise for my [legs]{"entity":"body_part","value":"leg"}
+    - give me an [advanced]{"entity":"level","value":"Expert"} [barbell](equipment) exercise
+    - recommend a [stretching]{"entity":"exercise_type","value":"Stretching"} exercise for my [hamstrings](body_part)
+    - suggest a [cardio]{"entity":"exercise_type","value":"Cardio"} exercise
+    - show me a [strength]{"entity":"exercise_type","value":"Strength"} exercise for my [back](body_part)
+    - recommend a [beginner](level) [dumbbell](equipment) [leg]{"entity":"body_part","value":"leg"} exercise
+
+# =========================================================
+# SHORT ANSWERS USED DURING A CONVERSATION
+# =========================================================
+
+- intent: inform
+  examples: |
+    - [chest](body_part)
+    - my [shoulders](body_part)
+    - [biceps](body_part)
+    - [triceps](body_part)
+    - my [abs]{"entity":"body_part","value":"Abdominals"}
+    - my [core]{"entity":"body_part","value":"Abdominals"}
+    - [quadriceps](body_part)
+    - [hamstrings](body_part)
+    - [glutes](body_part)
+    - [calves](body_part)
+    - [back](body_part)
+    - [legs]{"entity":"body_part","value":"leg"}
+    - [arms](body_part)
+    - [upper body](body_part)
+    - [full body](body_part)
+
+    - [beginner](level)
+    - [intermediate](level)
+    - [expert](level)
+    - I am a [newbie]{"entity":"level","value":"Beginner"}
+    - I am [advanced]{"entity":"level","value":"Expert"}
+
+    - [dumbbell](equipment)
+    - [barbell](equipment)
+    - [cable](equipment)
+    - [machine](equipment)
+    - [kettlebell]{"entity":"equipment","value":"Kettlebells"}
+    - [resistance bands]{"entity":"equipment","value":"Bands"}
+    - [bodyweight]{"entity":"equipment","value":"Body Only"}
+    - [no equipment]{"entity":"equipment","value":"Body Only"}
+    - any equipment
+    - I do not mind
+
+    - [strength](exercise_type)
+    - [cardio](exercise_type)
+    - [stretching](exercise_type)
+    - [powerlifting](exercise_type)
+    - [plyometrics](exercise_type)
+
+# =========================================================
+# EXERCISE DETAILS
+# =========================================================
+
+- intent: ask_exercise_details
+  examples: |
+    - tell me more about that exercise
+    - how do I perform it
+    - explain the exercise
+    - show me the instructions
+    - how is this exercise done
+    - what is the correct form
+    - give me more details
+    - how should I do this movement
+    - explain the first exercise
+    - tell me about the recommended exercise
+
+# =========================================================
+# RESET SAVED PREFERENCES
+# =========================================================
+
+- intent: reset_preferences
+  examples: |
+    - reset my choices
+    - clear my preferences
+    - start again
+    - restart the recommendation
+    - choose another workout
+    - I want to change everything
+    - clear the filters
+    - new recommendation
+
+# =========================================================
+# ENTITY LOOKUP TABLES
+# =========================================================
+
+- lookup: body_part
+  examples: |
+    - Abdominals
+    - Biceps
+    - Triceps
+    - Chest
+    - Shoulders
+    - Quadriceps
+    - Hamstrings
+    - Glutes
+    - Calves
+    - Lats
+    - Middle Back
+    - Lower Back
+    - Forearms
+    - Traps
+    - Abductors
+    - Adductors
+    - Neck
+    - leg
+    - legs
+    - leg day
+    - lower body
+    - back
+    - arms
+    - upper body
+    - full body
+    - abs
+    - core
+
+- lookup: equipment
+  examples: |
+    - Body Only
+    - Dumbbell
+    - Barbell
+    - Cable
+    - Machine
+    - Kettlebells
+    - Bands
+    - Medicine Ball
+    - Exercise Ball
+    - E-Z Curl Bar
+    - Foam Roll
+    - bodyweight
+    - no equipment
+    - resistance bands
+    - kettlebell
+
+- lookup: level
+  examples: |
+    - Beginner
+    - Intermediate
+    - Expert
+    - newbie
+    - advanced
+
+- lookup: exercise_type
+  examples: |
+    - Strength
+    - Stretching
+    - Plyometrics
+    - Powerlifting
+    - Cardio
+    - Olympic Weightlifting
+    - Strongman
+
+# =========================================================
+# ENTITY SYNONYMS
+# =========================================================
+
+- synonym: Abdominals
+  examples: |
+    - abs
+    - abdominal
+    - abdominals
+    - stomach
+    - core
+
+- synonym: leg
+  examples: |
+    - legs
+    - leg day
+    - lower body
+
+- synonym: arms
+  examples: |
+    - arm
+    - arm day
+
+- synonym: Body Only
+  examples: |
+    - bodyweight
+    - body weight
+    - body only
+    - no equipment
+    - without equipment
+
+- synonym: Bands
+  examples: |
+    - band
+    - resistance band
+    - resistance bands
+    - exercise band
+
+- synonym: Kettlebells
+  examples: |
+    - kettlebell
+    - kettle bell
+    - kettle bells
+
+- synonym: Beginner
+  examples: |
+    - beginner level
+    - newbie
+    - new to the gym
+    - easy
+
+- synonym: Intermediate
+  examples: |
+    - medium
+    - moderate
+    - normal level
+
+- synonym: Expert
+  examples: |
+    - advanced
+    - professional
+    - difficult

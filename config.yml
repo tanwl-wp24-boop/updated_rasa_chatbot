@@ -1,0 +1,72 @@
+# The config recipe.
+recipe: default.v1
+
+# Keep your existing unique assistant ID.
+assistant_id: 20260726-191429-daring-leopard
+
+# Language used by the chatbot.
+language: en
+
+# =========================================================
+# NLU PIPELINE
+# Understands user intentions and extracts gym entities.
+# =========================================================
+
+pipeline:
+  # Splits English sentences into words.
+  - name: WhitespaceTokenizer
+
+  # Uses lookup tables and patterns from nlu.yml.
+  - name: RegexFeaturizer
+    case_sensitive: false
+    use_word_boundaries: true
+
+  # Adds information about word positions and sentence structure.
+  - name: LexicalSyntacticFeaturizer
+
+  # Learns complete words and short phrases such as:
+  # "lower back", "full body", and "no equipment".
+  - name: CountVectorsFeaturizer
+    analyzer: word
+    min_ngram: 1
+    max_ngram: 2
+
+  # Learns character patterns and helps with minor spelling variations.
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 3
+    max_ngram: 5
+
+  # Main intent classifier and entity extractor.
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+
+  # Converts synonyms such as:
+  # "abs" -> "Abdominals"
+  # "bodyweight" -> "Body Only"
+  - name: EntitySynonymMapper
+
+  # Activates nlu_fallback when the model is uncertain.
+  - name: FallbackClassifier
+    threshold: 0.45
+    ambiguity_threshold: 0.10
+
+# =========================================================
+# DIALOGUE POLICIES
+# Decide what the chatbot should do next.
+# =========================================================
+
+policies:
+  # Remembers exact conversation patterns from training stories.
+  - name: MemoizationPolicy
+    max_history: 5
+
+  # Handles rules, forms, greetings, fallback, and reset actions.
+  - name: RulePolicy
+
+  # Learns less exact conversation patterns.
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
