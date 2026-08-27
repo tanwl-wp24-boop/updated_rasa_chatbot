@@ -10,7 +10,7 @@ import os
 # Rasa API Configuration
 # ==============================
 
-RASA_URL = "http://localhost:5005/webhooks/rest/webhook"
+RASA_URL = "http://old-galvanized-thesis.ngrok-free.dev"
 
 
 # ==============================
